@@ -44,8 +44,8 @@ MONOKUMA_QUOTES = ["It's the Monokuma File!", "I am Monokuma!"]
 DANGANRONPA1_CHARACTERS = ['Junko Enoshima', 'Alter Ego', 'Aoi Asahina', 'Leon Kuwata', 'Makoto Naegi']
 
 
-def to_feet(in_messure: Distance):
-    inches = int(in_messure.inch)
+def to_feet(in_measure: Distance):
+    inches = int(in_measure.inch)
     feet = inches // 12
     remaining = inches - (feet * 12)
 

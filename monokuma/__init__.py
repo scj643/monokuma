@@ -42,7 +42,7 @@ async def char(ctx: commands.context.Context, first_name: str):
     res = [x for x in characters if x.first_name.lower() == first_name.lower()]
     if res:
         c = res[0]
-        f, i = to_feet(c.height)
+        ft, i = to_feet(c.height)
         await ctx.send("{first} {last}\n"
                        "Gender: `{gender}`\n"
                        "Height: `{ft} Feet, {inch} Inches`\n"
@@ -50,8 +50,23 @@ async def char(ctx: commands.context.Context, first_name: str):
                        "Talent: `{talent}`\n"
                        "Blood Type: `{bt}`\n"
                        "Main Game: `{mg}`".format(first=c.first_name, last=c.last_name, gender=c.gender,
-                                                  ft=f, inch=i, month=c.b_day[0],
+                                                  ft=ft, inch=i, month=c.b_day[0],
                                                   day=c.b_day[1], talent=c.talent, bt=c.blood_type, mg=c.main_game))
+    else:
+        await ctx.send('I have no idea who that is. Phu phu phu.')
+
+
+@bot.command()
+async def bday(ctx: commands.context.Context, first_name: str):
+    """
+    Get's the remaining days to a character's birthday
+    :param ctx: 
+    :param first_name: Character name
+    """
+    res = [x for x in characters if x.first_name.lower() == first_name.lower()]
+    if res:
+        c = res[0]
+        await ctx.send('{} {} birthday is in {}'.format(c.first_name, c.last_name, c.next_birthday - date.today()))
     else:
         await ctx.send('I have no idea who that is. Phu phu phu.')
 
