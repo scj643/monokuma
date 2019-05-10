@@ -3,23 +3,25 @@ import random
 
 __author__ = "Charles Surett"
 
-MONOKUMA_QUOTES = ["It's the Monokuma File!"]
+MONOKUMA_QUOTES = ["It's the Monokuma File!", "I am Monokuma!"]
 
 bot = commands.Bot(command_prefix="$")
 
 
 @bot.command()
 async def hello(ctx: commands.context.Context):
-    await ctx.send('Hello')
+    """Say hello"""
+    await ctx.send('I am Monokuma')
 
 
 @bot.command()
 async def about(ctx: commands.context.Context):
     """
-    About the author
+    About the bot
     :param ctx: The context object
     """
-    await ctx.send('Created by: {}'.format(__author__))
+    await ctx.send('Created by: {}\n'
+                   'Github: https://github.com/scj643/monokuma'.format(__author__))
 
 
 @bot.command()
