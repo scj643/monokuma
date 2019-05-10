@@ -172,6 +172,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-api_token
+monokuma/api_token
 
 .idea/**
