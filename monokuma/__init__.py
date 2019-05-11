@@ -48,7 +48,6 @@ async def char(ctx: commands.context.Context, first_name: str):
                        f"Height: `{ft} Feet, {i} Inches`\n"
                        f"Born on: `{c.b_day[0]}-{c.b_day[1]}`\n"
                        f"Talent: `{c.talent}`\n"
-                       f"Blood Type: `{c.blood_type}`\n"
                        f"Main Game: `{c.main_game}`")
     else:
         await ctx.send('I have no idea who that is. Phu phu phu.')
