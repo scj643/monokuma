@@ -20,8 +20,8 @@ async def about(ctx: commands.context.Context):
     About the bot
     :param ctx: The context object
     """
-    await ctx.send('Created by: {}\n'
-                   'Github: https://github.com/scj643/monokuma'.format(__author__))
+    await ctx.send(f'Created by: {__author__}\n'
+                   f'Github: https://github.com/scj643/monokuma')
 
 
 @bot.command()
@@ -43,15 +43,13 @@ async def char(ctx: commands.context.Context, first_name: str):
     if res:
         c = res[0]
         ft, i = to_feet(c.height)
-        await ctx.send("{first} {last}\n"
-                       "Gender: `{gender}`\n"
-                       "Height: `{ft} Feet, {inch} Inches`\n"
-                       "Born on: `{month}-{day}`\n"
-                       "Talent: `{talent}`\n"
-                       "Blood Type: `{bt}`\n"
-                       "Main Game: `{mg}`".format(first=c.first_name, last=c.last_name, gender=c.gender,
-                                                  ft=ft, inch=i, month=c.b_day[0],
-                                                  day=c.b_day[1], talent=c.talent, bt=c.blood_type, mg=c.main_game))
+        await ctx.send(f"{c.first_name} {c.last_name}\n"
+                       f"Gender: `{c.gender}`\n"
+                       f"Height: `{ft} Feet, {i} Inches`\n"
+                       f"Born on: `{c.b_day[0]}-{c.b_day[1]}`\n"
+                       f"Talent: `{c.talent}`\n"
+                       f"Blood Type: `{c.blood_type}`\n"
+                       f"Main Game: `{c.main_game}`")
     else:
         await ctx.send('I have no idea who that is. Phu phu phu.')
 
@@ -60,13 +58,13 @@ async def char(ctx: commands.context.Context, first_name: str):
 async def bday(ctx: commands.context.Context, first_name: str):
     """
     Get's the remaining days to a character's birthday
-    :param ctx: 
+    :param ctx:
     :param first_name: Character name
     """
     res = [x for x in characters if x.first_name.lower() == first_name.lower()]
     if res:
         c = res[0]
-        await ctx.send('{} {} birthday is in {}'.format(c.first_name, c.last_name, c.next_birthday - date.today()))
+        await ctx.send(f'{c.first_name} {c.last_name} birthday is in {(c.next_birthday - date.today())}')
     else:
         await ctx.send('I have no idea who that is. Phu phu phu.')
 
