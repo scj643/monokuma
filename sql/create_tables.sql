@@ -6,7 +6,7 @@ CREATE TABLE monokuma.appearances (
     character_id integer,
     media_id integer,
     spoiler boolean DEFAULT false,
-    "primary" boolean DEFAULT true
+    primary_media boolean DEFAULT true
 );
 
 
