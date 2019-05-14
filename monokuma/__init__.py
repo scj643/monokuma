@@ -2,6 +2,9 @@
 from discord.ext import commands
 import random
 from .assets import *
+import logging
+
+logger = logging.getLogger(__name__)
 
 __author__ = "Charles Surett"
 
