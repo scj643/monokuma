@@ -23,3 +23,11 @@ async def get_character_media(name):
         name)
     await conn.close()
     return results
+
+
+async def list_characters():
+    conn = await asyncpg.connect(os.environ.get('PG_CONNECTION'))
+    results = await conn.fetch(
+        "select first, last from monokuma.characters")
+    await conn.close()
+    return results

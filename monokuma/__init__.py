@@ -2,7 +2,7 @@
 from discord.ext import commands
 import random
 from .assets import *
-from .postgres import get_character, get_character_media
+from .postgres import get_character, get_character_media, list_characters
 import logging
 
 logger = logging.getLogger(__name__)
@@ -89,3 +89,18 @@ async def bday(ctx: commands.context.Context, first_name: str):
         await ctx.send(f'{c.first_name} {c.last_name} birthday is in {(c.next_birthday - date.today())}')
     else:
         await ctx.send('I have no idea who that is. Phu phu phu.')
+
+
+@bot.command()
+async def lschar(ctx: commands.context.Context):
+    """
+    List all known characters
+    :param ctx:
+    :return:
+    """
+    res = await list_characters()
+    if res:
+        char_string = ''
+        for i in res:
+            char_string += f'{i["first"]} {i["last"]}\n'
+        await ctx.send(char_string)
