@@ -67,9 +67,3 @@ async def bday(ctx: commands.context.Context, first_name: str):
     else:
         await ctx.send('I have no idea who that is. Phu phu phu.')
 
-
-if __name__ == '__main__':
-    with open('api_token', 'r') as f:
-        token = f.read()
-    print('starting')
-    bot.run(token)
