@@ -51,6 +51,7 @@ async def char(ctx: commands.context.Context, first_name: str):
                        # f"Height: `{ft} Feet, {i} Inches`\n"
                        # f"Born on: `{c.b_day[0]}-{c.b_day[1]}`\n"
                        f"Talent: `{c['talent']}`\n"
+                       f"Kanji: `{c['kanji']}`"
                        # f"Main Game: `{c.main_game}`")
                        )
     else:

@@ -5,7 +5,8 @@ import os
 async def get_character(name):
     conn = await asyncpg.connect(os.environ.get('PG_CONNECTION'))
     results = await conn.fetch(
-        "select first, last, gender, talent from monokuma.characters where first ilike $1::text or last ilike $1::text",
+        "select first, last, gender, talent, kanji from monokuma.characters "
+        "where first ilike $1::text or last ilike $1::text",
         name)
     await conn.close()
     return results
