@@ -42,7 +42,6 @@ characters = [
 ]
 
 MONOKUMA_QUOTES = ["It's the Monokuma File!", "I am Monokuma!"]
-DANGANRONPA1_CHARACTERS = ['Junko Enoshima', 'Alter Ego', 'Aoi Asahina', 'Leon Kuwata', 'Makoto Naegi']
 
 
 def to_feet(in_measure: Distance):

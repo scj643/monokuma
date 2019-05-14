@@ -1,7 +1,7 @@
 # noinspection PyPackageRequirements
 from discord.ext import commands
 import random
-from monokuma.assets import *
+from .assets import *
 
 __author__ = "Charles Surett"
 
