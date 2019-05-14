@@ -1,0 +1,2 @@
+INSERT INTO monokuma.appearances (character_id, media_id, spoiler, primary_media) VALUES (1, 2, false, true);
+INSERT INTO monokuma.appearances (character_id, media_id, spoiler, primary_media) VALUES (2, 1, false, true);

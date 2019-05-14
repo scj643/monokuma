@@ -2,6 +2,7 @@
 from discord.ext import commands
 import random
 from .assets import *
+from .postgres import get_character, get_character_media
 import logging
 
 logger = logging.getLogger(__name__)
@@ -42,16 +43,34 @@ async def char(ctx: commands.context.Context, first_name: str):
     :param ctx:
     :param first_name: Name to look up. Is lowered before checking
     """
-    res = [x for x in characters if x.first_name.lower() == first_name.lower()]
+    res = await get_character(first_name)
     if res:
         c = res[0]
-        ft, i = to_feet(c.height)
-        await ctx.send(f"{c.first_name} {c.last_name}\n"
-                       f"Gender: `{c.gender}`\n"
-                       f"Height: `{ft} Feet, {i} Inches`\n"
-                       f"Born on: `{c.b_day[0]}-{c.b_day[1]}`\n"
-                       f"Talent: `{c.talent}`\n"
-                       f"Main Game: `{c.main_game}`")
+        await ctx.send(f"{c['first']} {c['last']}\n"
+                       f"Gender: `{c['gender']}`\n"
+                       # f"Height: `{ft} Feet, {i} Inches`\n"
+                       # f"Born on: `{c.b_day[0]}-{c.b_day[1]}`\n"
+                       f"Talent: `{c['talent']}`\n"
+                       # f"Main Game: `{c.main_game}`")
+                       )
+    else:
+        await ctx.send('I have no idea who that is. Phu phu phu.')
+
+
+@bot.command()
+async def media(ctx: commands.context.Context, name: str):
+    """
+    Returns the media which a character appears in
+    :param ctx:
+    :param name: Name to look up. Is lowered before checking
+    """
+    res = await get_character_media(name)
+    if res:
+        c = res[0]
+        await ctx.send(f"{c['first']} {c['last']}\n"
+                       "Primary appearance in:\n"
+                       f"`{c['media_name']}`"
+                       )
     else:
         await ctx.send('I have no idea who that is. Phu phu phu.')
 
@@ -69,4 +88,3 @@ async def bday(ctx: commands.context.Context, first_name: str):
         await ctx.send(f'{c.first_name} {c.last_name} birthday is in {(c.next_birthday - date.today())}')
     else:
         await ctx.send('I have no idea who that is. Phu phu phu.')
-
