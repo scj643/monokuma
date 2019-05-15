@@ -46,7 +46,7 @@ async def char(ctx: commands.context.Context, first_name: str):
     res = await get_character(first_name)
     if res:
         c = res[0]
-        await ctx.send(f"{c['first']} {c['last']}\n"
+        await ctx.send(f"{c['first_name']} {c['last_name']}\n"
                        f"Gender: `{c['gender']}`\n"
                        # f"Height: `{ft} Feet, {i} Inches`\n"
                        # f"Born on: `{c.b_day[0]}-{c.b_day[1]}`\n"
@@ -68,7 +68,7 @@ async def media(ctx: commands.context.Context, name: str):
     res = await get_character_media(name)
     if res:
         c = res[0]
-        await ctx.send(f"{c['first']} {c['last']}\n"
+        await ctx.send(f"{c['first_name']} {c['last_name']}\n"
                        "Primary appearance in:\n"
                        f"`{c['media_name']}`"
                        )
@@ -102,5 +102,5 @@ async def lschar(ctx: commands.context.Context):
     if res:
         char_string = ''
         for i in res:
-            char_string += f'{i["first"]} {i["last"]}\n'
+            char_string += f'{i["first_name"]} {i["last_name"]}\n'
         await ctx.send(char_string)

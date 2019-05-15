@@ -15,11 +15,11 @@ async def get_character(name):
 async def get_character_media(name):
     conn = await asyncpg.connect(os.environ.get('PG_CONNECTION'))
     results = await conn.fetch(
-        "select first, last, gender, talent, m.english_name as media_name "
+        "select first_name, last_name, gender, talent, m.english_name as media_name "
         "from monokuma.appearances a "
         "inner join monokuma.characters c on a.character_id = c.id "
         "inner join monokuma.media m on a.media_id = m.id "
-        " where c.first ilike $1::text or c.last ilike $1::text and a.primary_media = true",
+        " where c.first_name ilike $1::text or c.last_name ilike $1::text and a.primary_media = true",
         name)
     await conn.close()
     return results

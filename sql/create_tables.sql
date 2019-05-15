@@ -2,8 +2,8 @@
 CREATE TABLE monokuma.characters
 (
     id             serial NOT NULL primary key,
-    first          varchar(40),
-    last           varchar(40),
+    first_name          varchar(40),
+    last_name           varchar(40),
     gender         varchar(10),
     talent         varchar(255),
     spoiler_talent varchar(255),
@@ -16,8 +16,8 @@ CREATE TABLE monokuma.characters
     sprite_url     varchar(1024)
 );
 
-COMMENT ON COLUMN monokuma.characters.first IS 'First Name';
-COMMENT ON COLUMN monokuma.characters.last IS 'Last Name';
+COMMENT ON COLUMN monokuma.characters.first_name IS 'First Name';
+COMMENT ON COLUMN monokuma.characters.last_name IS 'Last Name';
 COMMENT ON COLUMN monokuma.characters.height IS 'Height in centimeters';
 COMMENT ON COLUMN monokuma.characters.chest IS 'Chest size in centimeters';
 COMMENT ON COLUMN monokuma.characters.weight IS 'Weight in kilograms';
