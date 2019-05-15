@@ -1,186 +1,97 @@
---
--- Name: appearances; Type: TABLE; Schema: monokuma; Owner: scj643
---
+-- Characters table
+CREATE TABLE monokuma.characters
+(
+    id             serial NOT NULL primary key,
+    first          varchar(40),
+    last           varchar(40),
+    gender         varchar(10),
+    talent         varchar(255),
+    spoiler_talent varchar(255),
+    height         smallint,
+    birth_month    smallint,
+    birth_day      smallint,
+    chest          smallint,
+    weight         smallint,
+    kanji          varchar(10),
+    sprite_url     varchar(1024)
+);
 
-CREATE TABLE monokuma.appearances (
-    character_id integer,
-    media_id integer,
-    spoiler boolean DEFAULT false,
+COMMENT ON COLUMN monokuma.characters.first IS 'First Name';
+COMMENT ON COLUMN monokuma.characters.last IS 'Last Name';
+COMMENT ON COLUMN monokuma.characters.height IS 'Height in centimeters';
+COMMENT ON COLUMN monokuma.characters.chest IS 'Chest size in centimeters';
+COMMENT ON COLUMN monokuma.characters.weight IS 'Weight in kilograms';
+COMMENT ON COLUMN monokuma.characters.spoiler_talent IS 'Talent that is a spoiler in the media';
+
+
+CREATE TABLE monokuma.media
+(
+    id              serial NOT NULL PRIMARY KEY,
+    english_name    varchar(255),
+    jp_name         varchar(255),
+    us_release_date date,
+    jp_release_date date,
+    media_type      varchar(20) DEFAULT 'game'::varchar(20),
+    cover_url       varchar(1024)
+);
+
+
+-- Appearances table
+-- Character IDs are mapped to the media that they appear in
+
+CREATE TABLE monokuma.appearances
+(
+    character_id  smallint
+        constraint appearances_characters_id_fk
+            references monokuma.characters,
+    media_id      smallint
+        constraint appearances_media_id_fk
+            references monokuma.media,
+    spoiler       boolean DEFAULT false,
     primary_media boolean DEFAULT true
 );
 
 
---
--- Name: characters; Type: TABLE; Schema: monokuma; Owner: scj643
---
+-- Information on the chapters in the games
+CREATE TABLE monokuma.chapters
+(
+    id       serial NOT NULL PRIMARY KEY,
+    media_id smallint
+        constraint chapters_media_id_fk
+            references monokuma.media,
+    name     varchar(256),
+    number   smallint
+);
+COMMENT ON COLUMN monokuma.chapters.number IS 'Numbering starts at 0 for prologue';
 
-CREATE TABLE monokuma.characters (
-    id integer NOT NULL,
-    first character varying(40),
-    last character varying(40),
-    gender character varying(10),
-    talent character varying(64),
-    height smallint,
-    birth_month smallint,
-    birth_day smallint,
-    chest smallint,
-    weight smallint,
-    kanji character varying(10)
+CREATE TABLE monokuma.murders
+(
+    murderer_id smallint
+        constraint murderer_characters_id_fk
+            references monokuma.characters,
+    murdered_id smallint
+        constraint murdered_characters_id_fk
+            references monokuma.characters,
+    media_id    smallint
+        constraint murder_media_id_fk
+            references monokuma.media,
+    chapter_id  smallint
+        constraint murder_chapter_id_fk
+            references monokuma.chapters
 );
 
-
---
--- Name: COLUMN characters.first; Type: COMMENT; Schema: monokuma; Owner: scj643
---
-
-COMMENT ON COLUMN monokuma.characters.first IS 'First Name';
-
-
---
--- Name: COLUMN characters.last; Type: COMMENT; Schema: monokuma; Owner: scj643
---
-
-COMMENT ON COLUMN monokuma.characters.last IS 'Last Name';
-
-
---
--- Name: COLUMN characters.height; Type: COMMENT; Schema: monokuma; Owner: scj643
---
-
-COMMENT ON COLUMN monokuma.characters.height IS 'Height in centimeters';
-
-
---
--- Name: COLUMN characters.chest; Type: COMMENT; Schema: monokuma; Owner: scj643
---
-
-COMMENT ON COLUMN monokuma.characters.chest IS 'Chest size in centimeters
-';
-
-
---
--- Name: COLUMN characters.weight; Type: COMMENT; Schema: monokuma; Owner: scj643
---
-
-COMMENT ON COLUMN monokuma.characters.weight IS 'Weight in killograms';
-
-
---
--- Name: characters_id_seq; Type: SEQUENCE; Schema: monokuma; Owner: scj643
---
-
-CREATE SEQUENCE monokuma.characters_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: characters_id_seq; Type: SEQUENCE OWNED BY; Schema: monokuma;
---
-
-ALTER SEQUENCE monokuma.characters_id_seq OWNED BY monokuma.characters.id;
-
-
---
--- Name: media; Type: TABLE; Schema: monokuma;
---
-
-CREATE TABLE monokuma.media (
-    id integer NOT NULL,
-    english_name character varying(255),
-    jp_name character varying(255),
-    us_release_date date,
-    jp_release_date date,
-    media_type character varying(20) DEFAULT 'game'::character varying
+CREATE TABLE monokuma.quotes
+(
+    id           serial NOT NULL PRIMARY KEY,
+    character_id smallint
+        constraint quotes_character_id_fk
+            references monokuma.characters,
+    media_id     smallint
+        constraint quotes_media_id_fk
+            references monokuma.media,
+    quote        text,
+    spoiler      bool default TRUE,
+    chapter_id      smallint
+        constraint quotes_chapter_id_fk
+            references monokuma.chapters
 );
-
-
---
--- Name: games_id_seq; Type: SEQUENCE; Schema: monokuma;
---
-
-CREATE SEQUENCE monokuma.games_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: games_id_seq; Type: SEQUENCE OWNED BY; Schema: monokuma;
---
-
-ALTER SEQUENCE monokuma.games_id_seq OWNED BY monokuma.media.id;
-
-
---
--- Name: characters id; Type: DEFAULT; Schema: monokuma;
---
-
-ALTER TABLE ONLY monokuma.characters ALTER COLUMN id SET DEFAULT nextval('monokuma.characters_id_seq'::regclass);
-
-
---
--- Name: media id; Type: DEFAULT; Schema: monokuma; Owner: scj643
---
-
-ALTER TABLE ONLY monokuma.media ALTER COLUMN id SET DEFAULT nextval('monokuma.games_id_seq'::regclass);
-
-
-
---
--- Name: characters characters_pk; Type: CONSTRAINT; Schema: monokuma; Owner: scj643
---
-
-ALTER TABLE ONLY monokuma.characters
-    ADD CONSTRAINT characters_pk PRIMARY KEY (id);
-
-
---
--- Name: media games_pk; Type: CONSTRAINT; Schema: monokuma; Owner: scj643
---
-
-ALTER TABLE ONLY monokuma.media
-    ADD CONSTRAINT games_pk PRIMARY KEY (id);
-
-
---
--- Name: characters_id_uindex; Type: INDEX; Schema: monokuma; Owner: scj643
---
-
-CREATE UNIQUE INDEX characters_id_uindex ON monokuma.characters USING btree (id);
-
-
---
--- Name: games_id_uindex; Type: INDEX; Schema: monokuma; Owner: scj643
---
-
-CREATE UNIQUE INDEX games_id_uindex ON monokuma.media USING btree (id);
-
-
---
--- Name: appearances appearances_characters_id_fk; Type: FK CONSTRAINT; Schema: monokuma; Owner: scj643
---
-
-ALTER TABLE ONLY monokuma.appearances
-    ADD CONSTRAINT appearances_characters_id_fk FOREIGN KEY (character_id) REFERENCES monokuma.characters(id);
-
-
---
--- Name: appearances appearances_media_id_fk; Type: FK CONSTRAINT; Schema: monokuma; Owner: scj643
---
-
-ALTER TABLE ONLY monokuma.appearances
-    ADD CONSTRAINT appearances_media_id_fk FOREIGN KEY (media_id) REFERENCES monokuma.media(id);
-
-
---
--- PostgreSQL database dump complete
---
-
