@@ -1,6 +1,6 @@
 -- using sql functions to make inserting in bulk easier
 
-CREATE OR REPLACE FUNCTION add_character_appearance(in_first_name varchar(40), in_last_name varchar(40),
+CREATE OR REPLACE FUNCTION get_character_appearance(in_first_name varchar(40), in_last_name varchar(40),
                                                     in_media_name varchar(255), is_spoiler bool default false,
                                                     is_primary bool default true) RETURNS TABLE
                                                                                           (
@@ -29,7 +29,7 @@ BEGIN
 end;
 $$ language plpgsql;
 
-CREATE OR REPLACE FUNCTION add_character_appearance(names varchar(40)[][],
+CREATE OR REPLACE FUNCTION get_character_appearance(names varchar(40)[][],
                                                     in_media_name varchar(255), is_spoiler bool default false,
                                                     is_primary bool default true) RETURNS TABLE
                                                                                           (
@@ -60,7 +60,7 @@ $$ language plpgsql;
 -- add Danganronpa 1 character appearances
 with dr1 as (
     select *
-    from add_character_appearance(array [['Kyoko', 'Kirigiri'], ['Toko', 'Fukawa'], ['Makoto', 'Naegi']],
+    from get_character_appearance(array [['Kyoko', 'Kirigiri'], ['Toko', 'Fukawa'], ['Makoto', 'Naegi']],
                                   'Danganronpa: Trigger Happy Havoc')
 )
 INSERT INTO monokuma.appearances
