@@ -62,3 +62,25 @@ where not exists(select *
                    and media_id = dr1.media_id);
 
 
+with dr2 as (
+    select *
+    from get_character_talent('Chiaki', 'Nanami', 'Danganronpa 2: Goodbye Despair', 'Ultimate Gamer', false)
+    union
+    select *
+    from get_character_talent('Mikan', 'Tsumiki', 'Danganronpa 2: Goodbye Despair', 'Ultimate Nurse', false)
+    union
+    select *
+    from get_character_talent('Hajime', 'Hinata', 'Danganronpa 2: Goodbye Despair', 'Ultimate ???', false)
+    union
+    select *
+    from get_character_talent('Hajime', 'Hinata', 'Danganronpa 2: Goodbye Despair', 'Ultimate Hope', true)
+)
+insert
+into talents
+select *
+from dr2
+where not exists(select *
+                 from monokuma.talents
+                 where character_id = dr2.character_id
+                   and talent = dr2.talent
+                   and media_id = dr2.media_id);
