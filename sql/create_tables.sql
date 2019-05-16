@@ -2,8 +2,8 @@
 CREATE TABLE monokuma.characters
 (
     id             serial NOT NULL primary key,
-    first_name          varchar(40),
-    last_name           varchar(40),
+    first_name     varchar(40),
+    last_name      varchar(40),
     gender         varchar(10),
     talent         varchar(255),
     spoiler_talent varchar(255),
@@ -91,7 +91,19 @@ CREATE TABLE monokuma.quotes
             references monokuma.media,
     quote        text,
     spoiler      bool default TRUE,
-    chapter_id      smallint
+    chapter_id   smallint
         constraint quotes_chapter_id_fk
             references monokuma.chapters
 );
+
+CREATE TABLE monokuma.talents
+(
+    character_id smallint
+        constraint talents_character_id_fk
+            references monokuma.characters,
+    talent       varchar(40),
+    spoiler      bool default false,
+    media_id     smallint
+        constraint talents_media_id_fk
+            references monokuma.media
+)
