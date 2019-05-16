@@ -5,8 +5,8 @@ import os
 async def get_character(name):
     conn = await asyncpg.connect(os.environ.get('PG_CONNECTION'))
     results = await conn.fetch(
-        "select first_name, last_name, gender, t.talent as talent , kanji from monokuma.characters "
-        "left join monokuma.talents t on characters.id = t.character_id "
+        "select first_name, last_name, gender, t.talent as talent , kanji from monokuma.char_info_character "
+        "left join monokuma.char_info_talent t on char_info_character.id = t.character_id "
         "where first_name ilike $1::text or last_name ilike $1::text and t.spoiler = false",
         name)
     await conn.close()
