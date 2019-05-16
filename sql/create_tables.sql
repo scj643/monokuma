@@ -5,8 +5,6 @@ CREATE TABLE monokuma.characters
     first_name     varchar(40),
     last_name      varchar(40),
     gender         varchar(10),
-    talent         varchar(255),
-    spoiler_talent varchar(255),
     height         smallint,
     birth_month    smallint,
     birth_day      smallint,
