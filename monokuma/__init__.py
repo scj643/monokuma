@@ -2,8 +2,9 @@
 from discord.ext import commands
 import random
 from .assets import *
-from .postgres import get_character, get_character_media, list_characters
+from .postgres import get_character, get_character_media, list_characters, get_db
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -104,3 +105,15 @@ async def lschar(ctx: commands.context.Context):
         for i in res:
             char_string += f'{i["first_name"]} {i["last_name"]}\n'
         await ctx.send(char_string)
+
+
+if os.environ.get("DEBUG"):
+    @bot.command()
+    async def curdb(ctx: commands.context.Context):
+        """
+        Get the current database
+        :param ctx:
+        :return:
+        """
+        res = await get_db()
+        await ctx.send(res)

@@ -34,3 +34,10 @@ async def list_characters():
         "select first_name, last_name from monokuma.characters")
     await conn.close()
     return results
+
+
+async def get_db():
+    conn = await asyncpg.connect(os.environ.get('PG_CONNECTION'))
+    results = await conn.fetch("select current_database();")
+    await conn.close()
+    return results

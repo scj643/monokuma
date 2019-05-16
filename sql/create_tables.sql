@@ -19,7 +19,6 @@ COMMENT ON COLUMN monokuma.characters.last_name IS 'Last Name';
 COMMENT ON COLUMN monokuma.characters.height IS 'Height in centimeters';
 COMMENT ON COLUMN monokuma.characters.chest IS 'Chest size in centimeters';
 COMMENT ON COLUMN monokuma.characters.weight IS 'Weight in kilograms';
-COMMENT ON COLUMN monokuma.characters.spoiler_talent IS 'Talent that is a spoiler in the media';
 
 
 CREATE TABLE monokuma.media
