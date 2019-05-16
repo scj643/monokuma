@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Character(models.Model):
-    GENDERS = (('Male', 'Male'), ('Female', 'Female'), ('Unknown', 'Unknown'))
+    GENDERS = (('Male', 'Male'), ('Female', 'Female'), ('Unknown', 'Unknown'), ('?', '?'))
     first_name = models.CharField(max_length=40, blank=True, null=True)
     last_name = models.CharField(max_length=40, blank=True, null=True)
     gender = models.CharField(max_length=10, choices=GENDERS, blank=True, null=True)
@@ -44,6 +44,9 @@ class Talent(models.Model):
     spoiler = models.BooleanField(default=False)
     talent = models.CharField(max_length=80)
 
+    def __str__(self):
+        return f'Talent: {self.character.first_name} {self.character.last_name} - {self.talent}'
+
 
 class Chapter(models.Model):
     media = models.ForeignKey(Media, on_delete=models.SET_NULL, null=True)
@@ -51,11 +54,17 @@ class Chapter(models.Model):
     number = models.SmallIntegerField(help_text="The number of the chapter in the game.\n"
                                                 "Starts at 0 for the Prologue")
 
+    def __str__(self):
+        return f'Chapter: {self.number} - {self.name}'
+
 
 class Murder(models.Model):
     murderer = models.ForeignKey(Character, on_delete=models.SET_NULL, null=True, related_name='murderer')
     murdered = models.ForeignKey(Character, on_delete=models.SET_NULL, null=True, related_name='murdered')
     chapter = models.ForeignKey(Chapter, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f'Murder: {self.murderer} killed {self.murdered} in {self.chapter}'
 
 
 class Quote(models.Model):
@@ -63,3 +72,6 @@ class Quote(models.Model):
     quote = models.CharField(max_length=4096, null=True)
     spoiler = models.BooleanField(default=False)
     media = models.ForeignKey(Media, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f'Quote "{self.quote}" by {self.character}'
