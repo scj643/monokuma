@@ -1,3 +1,5 @@
 discord.py
 measurement
 asyncpg
+Django
+psycopg2
