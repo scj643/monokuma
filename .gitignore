@@ -177,3 +177,5 @@ monokuma/api_token
 .idea/**
 DJANGO_ENV
 *.kdbx
+
+monokuma_django_app/static
