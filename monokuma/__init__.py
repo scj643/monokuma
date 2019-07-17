@@ -1,5 +1,7 @@
 # noinspection PyPackageRequirements
 from discord.ext import commands
+# noinspection PyPackageRequirements
+import discord
 import random
 from .assets import *
 from .postgres import get_character, get_character_media, list_characters, get_db
@@ -17,6 +19,22 @@ bot = commands.Bot(command_prefix="$")
 async def hello(ctx: commands.context.Context):
     """Say hello"""
     await ctx.send('I am Monokuma')
+
+
+@bot.command()
+async def role_sub(ctx: commands.context.Context, role: discord.Role):
+    """
+    Subscribe to a role
+    :param ctx:
+    :param role: Role name to subscribe to
+    :return:
+    """
+    if role in ctx.author.roles:
+        await ctx.author.remove_roles(role)
+        await ctx.send(f'Unsubscribed from {role.name}')
+    else:
+        await ctx.author.add_roles(role)
+        await ctx.send(f'Subscribed to {role.name}')
 
 
 @bot.command()
