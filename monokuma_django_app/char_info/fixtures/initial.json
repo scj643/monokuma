@@ -1,0 +1,160 @@
+[
+  {
+    "model": "char_info.character",
+    "pk": 1,
+    "fields": {
+      "first_name": "Chiaki",
+      "last_name": "Nanami",
+      "gender": "Female",
+      "height": 160,
+      "birth_month": 3,
+      "birth_day": 14,
+      "chest": 88,
+      "weight": 46,
+      "kanji": "\u4e03\u6d77 \u5343\u79cb"
+    }
+  },
+  {
+    "model": "char_info.character",
+    "pk": 2,
+    "fields": {
+      "first_name": "Hajime",
+      "last_name": "Hinata",
+      "gender": "Male",
+      "height": 179,
+      "birth_month": 1,
+      "birth_day": 1,
+      "chest": 91,
+      "weight": 67,
+      "kanji": "\u65e5\u5411 \u5275"
+    }
+  },
+  {
+    "model": "char_info.character",
+    "pk": 3,
+    "fields": {
+      "first_name": "Mikan",
+      "last_name": "Tsumiki",
+      "gender": "Female",
+      "height": 165,
+      "birth_month": 5,
+      "birth_day": 12,
+      "chest": 89,
+      "weight": 57,
+      "kanji": "\u7f6a\u6728 \u871c\u67d1"
+    }
+  },
+  {
+    "model": "char_info.character",
+    "pk": 4,
+    "fields": {
+      "first_name": "Kokichi",
+      "last_name": "Oma",
+      "gender": "Male",
+      "height": 156,
+      "birth_month": 6,
+      "birth_day": 21,
+      "chest": 70,
+      "weight": 44,
+      "kanji": "\u738b\u99ac \u5c0f\u5409"
+    }
+  },
+  {
+    "model": "char_info.character",
+    "pk": 5,
+    "fields": {
+      "first_name": "Kyoko",
+      "last_name": "Kirigiri",
+      "gender": "Female",
+      "height": 167,
+      "birth_month": 10,
+      "birth_day": 6,
+      "chest": 82,
+      "weight": 48,
+      "kanji": "\u9727\u5207 \u97ff\u5b50"
+    }
+  },
+  {
+    "model": "char_info.media",
+    "pk": 1,
+    "fields": {
+      "english_name": "Danganronpa: Trigger Happy Havoc",
+      "jp_name": "\u30c0\u30f3\u30ac\u30f3\u30ed\u30f3\u30d1 \u5e0c\u671b\u306e\u5b66\u5712\u3068\u7d76\u671b\u306e\u9ad8\u6821\u751f",
+      "us_release_date": "2014-02-11",
+      "jp_release_date": "2010-11-25",
+      "media_type": "game"
+    }
+  },
+  {
+    "model": "char_info.media",
+    "pk": 2,
+    "fields": {
+      "english_name": "Danganronpa 2: Goodbye Despair",
+      "jp_name": "\u30b9\u30fc\u30d1\u30fc\u30c0\u30f3\u30ac\u30f3\u30ed\u30f3\u30d12 \u3055\u3088\u306a\u3089\u7d76\u671b\u5b66\u5712",
+      "us_release_date": "2014-09-02",
+      "jp_release_date": "2012-07-26",
+      "media_type": "game"
+    }
+  },
+  {
+    "model": "char_info.media",
+    "pk": 3,
+    "fields": {
+      "english_name": "Danganronpa V3: Killing Harmony",
+      "jp_name": "\u30cb\u30e5\u30fc \u30c0\u30f3\u30ac\u30f3\u30ed\u30f3\u30d1V3 \u307f\u3093\u306a\u306e\u30b3\u30ed\u30b7\u30a2\u30a4\u65b0\u5b66\u671f",
+      "us_release_date": "2017-09-26",
+      "jp_release_date": "2017-01-12",
+      "media_type": "game"
+    }
+  },
+  {
+    "model": "char_info.appearances",
+    "pk": 1,
+    "fields": {
+      "character": 1,
+      "media": 2,
+      "spoiler": false,
+      "primary_media": true
+    }
+  },
+  {
+    "model": "char_info.appearances",
+    "pk": 2,
+    "fields": {
+      "character": 3,
+      "media": 2,
+      "spoiler": false,
+      "primary_media": true
+    }
+  },
+  {
+    "model": "char_info.appearances",
+    "pk": 3,
+    "fields": {
+      "character": 2,
+      "media": 2,
+      "spoiler": false,
+      "primary_media": true
+    }
+  },
+  {
+    "model": "char_info.appearances",
+    "pk": 4,
+    "fields": {
+      "character": 5,
+      "media": 1,
+      "spoiler": false,
+      "primary_media": true
+    }
+  },
+  {
+    "model": "char_info.appearances",
+    "pk": 5,
+    "fields": {
+      "character": 4,
+      "media": 3,
+      "spoiler": false,
+      "primary_media": true
+    }
+  }
+]
