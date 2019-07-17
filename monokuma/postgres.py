@@ -41,3 +41,5 @@ async def get_db():
     results = await conn.fetch("select current_database();")
     await conn.close()
     return results
+
+

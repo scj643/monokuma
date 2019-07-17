@@ -27,6 +27,8 @@ class Character(models.Model):
     chest = models.PositiveSmallIntegerField(help_text='Chest Size in centimeters', blank=True, null=True)
     weight = models.PositiveSmallIntegerField(help_text='Weight in kilograms', blank=True, null=True)
     kanji = models.CharField(max_length=10, blank=True, null=True)
+    spoiler = models.BooleanField(help_text="If the character's existence is spoiler this should be true.",
+                                  default=False)
 
     class Meta:
         constraints = [
