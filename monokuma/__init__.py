@@ -4,7 +4,8 @@ from discord.ext import commands
 import discord
 import random
 from .assets import *
-from .postgres import get_character, get_character_media, list_characters, get_db
+from .postgres import get_character, get_character_media, list_characters, get_db, get_character_next_bday
+import re
 import logging
 import os
 
@@ -96,16 +97,16 @@ async def media(ctx: commands.context.Context, name: str):
 
 
 @bot.command()
-async def bday(ctx: commands.context.Context, first_name: str):
+async def bday(ctx: commands.context.Context, name: str):
     """
     Get's the remaining days to a character's birthday
     :param ctx:
-    :param first_name: Character name
+    :param name: Character name
     """
-    res = [x for x in characters if x.first_name.lower() == first_name.lower()]
+    res = await get_character_next_bday(name)
+    sql_regex = re.compile(' [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{6}')
     if res:
-        c = res[0]
-        await ctx.send(f'{c.first_name} {c.last_name} birthday is in {(c.next_birthday - date.today())}')
+        await ctx.send(sql_regex.split(res[0][0])[0])
     else:
         await ctx.send('I have no idea who that is. Phu phu phu.')
 

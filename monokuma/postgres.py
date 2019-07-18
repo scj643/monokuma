@@ -28,6 +28,30 @@ async def get_character_media(name):
     return results
 
 
+async def get_character_next_bday(name):
+    conn = await asyncpg.connect(os.environ.get('PG_CONNECTION'))
+    results = await conn.fetch("""select 
+    CASE
+    -- check when the next occurrence is this year
+    WHEN birth_month >= extract(month from now()) AND birth_day > extract(day from now())
+        then first_name || ' ' || last_name || ' birthday is in ' || 
+        make_date(extract(year from now())::int, birth_month, birth_day) - now()
+    WHEN birth_month > extract(month from now()) AND birth_day < extract(day from now())
+        then first_name || ' ' || last_name || ' birthday is in ' || 
+        make_date(extract(year from now())::int, birth_month, birth_day) - now()
+    WHEN birth_month = extract(month from now()) AND birth_day = extract(day from now())
+    THEN first_name || ' ' || last_name || ' birthday is today!!!!'
+    ELSE
+    first_name || ' ' || last_name || ' birthday is in ' || 
+        make_date(extract(year from now())::int + 1::int, birth_month, birth_day) - now()
+    END
+    from monokuma.char_info_character c
+    where c.first_name ilike $1::text or c.last_name ilike $1::text;
+    """, name)
+    await conn.close()
+    return results
+
+
 async def list_characters():
     conn = await asyncpg.connect(os.environ.get('PG_CONNECTION'))
     results = await conn.fetch(
@@ -41,5 +65,3 @@ async def get_db():
     results = await conn.fetch("select current_database();")
     await conn.close()
     return results
-
-
