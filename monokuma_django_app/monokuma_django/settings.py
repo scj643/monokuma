@@ -71,25 +71,14 @@ WSGI_APPLICATION = 'monokuma_django.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-db_engine = os.environ.get("DJANGO_DB_ENGINE")
-db_name = os.environ.get("DJANGO_DB_NAME")
-db_user = os.environ.get("DJANGO_DB_USER")
-db_password = os.environ.get("DJANGO_DB_PASS")
-db_host = os.environ.get("DJANGfO_DB_HOST", '127.0.0.1')
-db_port = os.environ.get("DJANGO_DB_PORT", '5432')
-db_schema = os.environ.get("DJANGO_DB_SCHEMA")
-if not db_schema:
-    db_schema = 'monokuma'
 
-if db_engine and db_name and db_user and db_password and db_host and db_port:
+db_schema = 'monokuma'
+
+if db_schema:
     DATABASES = {
         'default': {
-            'ENGINE': db_engine,
-            'NAME': db_name,
-            'USER': db_user,
-            'PASSWORD': db_password,
-            'HOST': db_host,
-            'PORT': db_port,
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'discord',
             'OPTIONS': {
                 'options': f'-c search_path={db_schema}'
             },
